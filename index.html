@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Junaid Ahmad | Portfolio</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --text-color: #1f2937;
+            --bg-color: #f9fafb;
+            --card-bg: #ffffff;
+            --accent-color: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            color: var(--accent-color);
+            font-size: 0.9rem;
+        }
+
+        .contact-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .item {
+            margin-bottom: 1.5rem;
+        }
+
+        .item:last-child {
+            margin-bottom: 0;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.25rem;
+            font-weight: bold;
+        }
+
+        .item-subheader {
+            color: var(--accent-color);
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: #e5e7eb;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        li::before {
+            content: "•";
+            color: var(--primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        li {
+            margin-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-right: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .item-header {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Junaid Ahmad</h1>
+            <div class="contact-info">
+                <span>Rochester, NY</span>
+                <span>(585) 506-7836</span>
+                <a href="mailto:ja4893@rit.edu">ja4893@rit.edu</a>
+                <a href="https://linkedin.com/in/junaid-ahmad-a259a177" target="_blank">LinkedIn</a>
+            </div>
+        </header>
+
+        <section id="summary">
+            <h2>Summary</h2>
+            <p>Passionate software engineer with 8 years of hands-on experience developing 10+ full games in Unity3D. Skilled in C#, gameplay programming, UI/UX, and 3D content creation. Seeking a Software Engineering Co-op to apply strong technical and creative skills to real-world development projects.</p>
+        </section>
+
+        <section id="experience">
+            <h2>Experience</h2>
+            <div class="item">
+                <div class="item-header">
+                    <span>Spark Game Studios</span>
+                    <span>Sep 2016 – Present</span>
+                </div>
+                <div class="item-subheader">Founder / CEO | Pakistan</div>
+                <ul>
+                    <li>Designed & developed 10+ Unity C# mobile games, published on Google Play with 150M+ downloads.</li>
+                    <li>Built custom tools & editors, save/load systems, and optimized performance using pooling & batching.</li>
+                    <li>Created complete UI kits in Photoshop and 3D assets in Blender.</li>
+                    <li>Implemented ads, IAPs, analytics SDKs (AdMob, Unity IAP, Game Analytics).</li>
+                    <li>Led a team of 25+ developers, designers, and marketers; set technical conventions & pipelines.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Key Projects</h2>
+            <div class="item">
+                <div class="item-header">Car Driving School (Simulation)</div>
+                <div class="item-subheader">Tools: Unity, C#, Blender, Photoshop</div>
+                <p>100M+ downloads; ranked #12 globally in Q4 2021. Developed vehicle physics, UI systems, and mission logic.</p>
+                <div class="project-links">
+                    <a href="#">Google Play</a>
+                    <a href="#">AppStore</a>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-header">Sands of Secrets (Digging Game)</div>
+                <div class="item-subheader">Tools: Unity, C#, Shader Graph, Blender</div>
+                <p>Built real-time terrain deformation and lighting; solo-developed and shipped in 2 weeks.</p>
+                <div class="project-links">
+                    <a href="#">AppStore</a>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-header">Car Color Sort (Puzzle Game)</div>
+                <div class="item-subheader">Tools: Unity, C#, ScriptableObjects, Photoshop</div>
+                <p>Procedural puzzle generation using ScriptableObjects; 1,000 levels.</p>
+            </div>
+        </section>
+
+        <section id="education">
+            <h2>Education</h2>
+            <div class="item">
+                <div class="item-header">
+                    <span>Rochester Institute of Technology (RIT)</span>
+                    <span>Expected Jul 2027</span>
+                </div>
+                <div class="item-subheader">M.S. Computer Science | Rochester, NY</div>
+            </div>
+            <div class="item">
+                <div class="item-header">
+                    <span>University of Engineering & Technology (UET) Peshawar</span>
+                    <span>Sep 2017</span>
+                </div>
+                <div class="item-subheader">B.S. Civil Engineering | Pakistan</div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <div class="skill-tags">
+                        <span class="tag">C#</span>
+                        <span class="tag">Java</span>
+                        <span class="tag">Python</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Engines</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Unity3D</span>
+                        <span class="tag">Unreal Engine</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Design Tools</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Photoshop</span>
+                        <span class="tag">Illustrator</span>
+                        <span class="tag">Premiere</span>
+                        <span class="tag">Canva</span>
+                        <span class="tag">Blender</span>
+                        <span class="tag">3DS Max</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>AI Tools</h3>
+                    <div class="skill-tags">
+                        <span class="tag">GitHub Copilot</span>
+                        <span class="tag">ChatGPT</span>
+                        <span class="tag">Claude</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="advisory">
+            <h2>Advisory Roles</h2>
+            <ul>
+                <li><strong>SRG Gaming LLC (Dubai):</strong> Set up Pakistan operations – hiring, pipeline, strategy.</li>
+                <li><strong>TW Games Studio (Pakistan):</strong> Co-founded offshoot of Spark Game Studios.</li>
+                <li><strong>Imperial Arts Pty Ltd (Australia):</strong> Consulted on game planning & execution strategy.</li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>
