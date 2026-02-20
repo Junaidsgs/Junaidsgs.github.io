@@ -3,284 +3,550 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Junaid Ahmad | Portfolio</title>
+    <meta name="description" content="Junaid Ahmad – Game Developer, Designer & Software Engineer. Founder of Spark Game Studios. 150M+ game downloads.">
+    <title>Junaid Ahmad | Game Developer &amp; Designer</title>
     <style>
+        /* ── Reset & tokens ── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
         :root {
-            --primary-color: #2563eb;
-            --text-color: #1f2937;
-            --bg-color: #f9fafb;
-            --card-bg: #ffffff;
-            --accent-color: #64748b;
+            --primary:   #4f46e5;
+            --primary-d: #3730a3;
+            --accent:    #06b6d4;
+            --text:      #1e293b;
+            --muted:     #64748b;
+            --bg:        #0f172a;
+            --surface:   #1e293b;
+            --card:      #ffffff;
+            --radius:    12px;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            padding: 2rem 1rem;
+            line-height: 1.7;
+            color: var(--text);
+            background: #f1f5f9;
         }
 
-        .container {
-            max-width: 800px;
+        /* ── Nav ── */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--bg);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .nav-inner {
+            max-width: 1000px;
             margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 56px;
         }
+        .nav-logo {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            letter-spacing: 0.02em;
+        }
+        .nav-logo span { color: var(--accent); }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #fff; }
 
-        header {
+        /* ── Hero ── */
+        .hero {
+            background: var(--bg);
+            color: #fff;
             text-align: center;
-            margin-bottom: 3rem;
+            padding: 6rem 1.5rem 5rem;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(79,70,229,0.25);
+            color: var(--accent);
+            border: 1px solid rgba(6,182,212,0.35);
+            border-radius: 999px;
+            padding: 0.3rem 1rem;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 {
+            font-size: clamp(2.2rem, 6vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+        .hero h1 span { color: var(--accent); }
+        .hero p {
+            max-width: 580px;
+            margin: 0 auto 2rem;
+            color: #94a3b8;
+            font-size: 1.05rem;
+        }
+        .hero-cta {
+            display: inline-flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.65rem 1.6rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: opacity 0.2s, transform 0.15s;
+        }
+        .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-outline { border: 1.5px solid #475569; color: #cbd5e1; }
+        .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3.5rem;
+            flex-wrap: wrap;
+        }
+        .stat { text-align: center; }
+        .stat-num {
+            display: block;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+        .stat-label { font-size: 0.8rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.06em; }
+
+        /* ── Page sections ── */
+        .page { max-width: 1000px; margin: 0 auto; padding: 4rem 1.5rem; }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 0.6rem;
+        }
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 48px; height: 3px;
+            background: var(--primary);
+            border-radius: 999px;
         }
 
-        header h1 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
+        /* ── About ── */
+        .about-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+        }
+        .about-card p { color: #475569; font-size: 1rem; }
+
+        /* ── Experience ── */
+        .timeline-item {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 1.75rem 2rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            border-left: 4px solid var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        .tl-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 0.25rem;
+        }
+        .tl-company { font-weight: 700; font-size: 1.1rem; }
+        .tl-date { font-size: 0.85rem; color: var(--muted); }
+        .tl-role { color: var(--primary); font-size: 0.9rem; font-style: italic; margin-bottom: 1rem; }
+        .tl-list { list-style: none; padding: 0; }
+        .tl-list li {
+            position: relative;
+            padding-left: 1.25rem;
+            margin-bottom: 0.45rem;
+            color: #475569;
+            font-size: 0.95rem;
+        }
+        .tl-list li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
         }
 
-        .contact-info {
+        /* ── Projects ── */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .project-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 1.75rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .project-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+        .project-icon {
+            width: 44px; height: 44px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+        .project-card h3 { font-size: 1.05rem; margin-bottom: 0.3rem; }
+        .project-tools { font-size: 0.8rem; color: var(--muted); font-style: italic; margin-bottom: 0.75rem; }
+        .project-desc { font-size: 0.9rem; color: #475569; flex: 1; }
+        .project-links { margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+        .project-links a {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+            border: 1px solid #e0e7ff;
+            padding: 0.25rem 0.7rem;
+            border-radius: 6px;
+            transition: background 0.15s, color 0.15s;
+        }
+        .project-links a:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+        .project-links .link-pending {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            border: 1px dashed #cbd5e1;
+            padding: 0.25rem 0.7rem;
+            border-radius: 6px;
+        }
+
+        /* ── Skills ── */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.25rem;
+        }
+        .skill-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 1.4rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+        }
+        .skill-card h3 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--muted);
+            margin-bottom: 0.75rem;
+        }
+        .tag-list { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+        .tag {
+            background: #ede9fe;
+            color: var(--primary-d);
+            padding: 0.2rem 0.65rem;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 500;
+        }
+        .tag.green { background: #d1fae5; color: #065f46; }
+        .tag.cyan  { background: #cffafe; color: #155e75; }
+        .tag.pink  { background: #fce7f3; color: #9d174d; }
+
+        /* ── Education ── */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+        .edu-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 1.6rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            border-top: 4px solid var(--accent);
+        }
+        .edu-school { font-weight: 700; margin-bottom: 0.2rem; }
+        .edu-degree { font-size: 0.9rem; color: var(--primary); font-style: italic; margin-bottom: 0.4rem; }
+        .edu-date { font-size: 0.82rem; color: var(--muted); }
+
+        /* ── Advisory ── */
+        .advisory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+        }
+        .advisory-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+        }
+        .advisory-card strong { display: block; font-size: 0.95rem; margin-bottom: 0.35rem; color: var(--primary-d); }
+        .advisory-card p { font-size: 0.88rem; color: #475569; }
+
+        /* ── Contact ── */
+        .contact-section {
+            background: var(--bg);
+            color: #fff;
+            text-align: center;
+            padding: 4rem 1.5rem;
+        }
+        .contact-section h2 { font-size: 1.8rem; margin-bottom: 0.75rem; }
+        .contact-section p { color: #94a3b8; max-width: 480px; margin: 0 auto 2rem; font-size: 0.95rem; }
+        .contact-links {
             display: flex;
             justify-content: center;
             gap: 1rem;
             flex-wrap: wrap;
-            color: var(--accent-color);
-            font-size: 0.9rem;
         }
 
-        .contact-info a {
-            color: var(--primary-color);
-            text-decoration: none;
+        /* ── Footer ── */
+        footer {
+            background: var(--bg);
+            border-top: 1px solid rgba(255,255,255,0.06);
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.82rem;
+            color: #475569;
         }
 
-        section {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
-        }
-
-        h2 {
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .item {
-            margin-bottom: 1.5rem;
-        }
-
-        .item:last-child {
-            margin-bottom: 0;
-        }
-
-        .item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 0.25rem;
-            font-weight: bold;
-        }
-
-        .item-subheader {
-            color: var(--accent-color);
-            font-style: italic;
-            margin-bottom: 0.5rem;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .skill-category h3 {
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-color);
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .tag {
-            background: #e5e7eb;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.85rem;
-        }
-
-        ul {
-            list-style-type: none;
-        }
-
-        li::before {
-            content: "•";
-            color: var(--primary-color);
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1em;
-        }
-
-        li {
-            margin-left: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .project-links a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-size: 0.9rem;
-            margin-right: 1rem;
-        }
-
+        /* ── Responsive ── */
         @media (max-width: 600px) {
-            .item-header {
-                flex-direction: column;
-            }
+            .nav-links { display: none; }
+            .hero { padding: 4rem 1rem 3rem; }
+            .hero-stats { gap: 2rem; }
+            .page { padding: 2.5rem 1rem; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Junaid Ahmad</h1>
-            <div class="contact-info">
-                <span>Rochester, NY</span>
-                <span>(585) 506-7836</span>
-                <a href="mailto:ja4893@rit.edu">ja4893@rit.edu</a>
-                <a href="https://linkedin.com/in/junaid-ahmad-a259a177" target="_blank">LinkedIn</a>
-            </div>
-        </header>
 
-        <section id="summary">
-            <h2>Summary</h2>
-            <p>Passionate software engineer with 8 years of hands-on experience developing 10+ full games in Unity3D. Skilled in C#, gameplay programming, UI/UX, and 3D content creation. Seeking a Software Engineering Co-op to apply strong technical and creative skills to real-world development projects.</p>
-        </section>
-
-        <section id="experience">
-            <h2>Experience</h2>
-            <div class="item">
-                <div class="item-header">
-                    <span>Spark Game Studios</span>
-                    <span>Sep 2016 – Present</span>
-                </div>
-                <div class="item-subheader">Founder / CEO | Pakistan</div>
-                <ul>
-                    <li>Designed & developed 10+ Unity C# mobile games, published on Google Play with 150M+ downloads.</li>
-                    <li>Built custom tools & editors, save/load systems, and optimized performance using pooling & batching.</li>
-                    <li>Created complete UI kits in Photoshop and 3D assets in Blender.</li>
-                    <li>Implemented ads, IAPs, analytics SDKs (AdMob, Unity IAP, Game Analytics).</li>
-                    <li>Led a team of 25+ developers, designers, and marketers; set technical conventions & pipelines.</li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="projects">
-            <h2>Key Projects</h2>
-            <div class="item">
-                <div class="item-header">Car Driving School (Simulation)</div>
-                <div class="item-subheader">Tools: Unity, C#, Blender, Photoshop</div>
-                <p>100M+ downloads; ranked #12 globally in Q4 2021. Developed vehicle physics, UI systems, and mission logic.</p>
-                <div class="project-links">
-                    <a href="#">Google Play</a>
-                    <a href="#">AppStore</a>
-                </div>
-            </div>
-            <div class="item">
-                <div class="item-header">Sands of Secrets (Digging Game)</div>
-                <div class="item-subheader">Tools: Unity, C#, Shader Graph, Blender</div>
-                <p>Built real-time terrain deformation and lighting; solo-developed and shipped in 2 weeks.</p>
-                <div class="project-links">
-                    <a href="#">AppStore</a>
-                </div>
-            </div>
-            <div class="item">
-                <div class="item-header">Car Color Sort (Puzzle Game)</div>
-                <div class="item-subheader">Tools: Unity, C#, ScriptableObjects, Photoshop</div>
-                <p>Procedural puzzle generation using ScriptableObjects; 1,000 levels.</p>
-            </div>
-        </section>
-
-        <section id="education">
-            <h2>Education</h2>
-            <div class="item">
-                <div class="item-header">
-                    <span>Rochester Institute of Technology (RIT)</span>
-                    <span>Expected Jul 2027</span>
-                </div>
-                <div class="item-subheader">M.S. Computer Science | Rochester, NY</div>
-            </div>
-            <div class="item">
-                <div class="item-header">
-                    <span>University of Engineering & Technology (UET) Peshawar</span>
-                    <span>Sep 2017</span>
-                </div>
-                <div class="item-subheader">B.S. Civil Engineering | Pakistan</div>
-            </div>
-        </section>
-
-        <section id="skills">
-            <h2>Technical Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>Languages</h3>
-                    <div class="skill-tags">
-                        <span class="tag">C#</span>
-                        <span class="tag">Java</span>
-                        <span class="tag">Python</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>Engines</h3>
-                    <div class="skill-tags">
-                        <span class="tag">Unity3D</span>
-                        <span class="tag">Unreal Engine</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>Design Tools</h3>
-                    <div class="skill-tags">
-                        <span class="tag">Photoshop</span>
-                        <span class="tag">Illustrator</span>
-                        <span class="tag">Premiere</span>
-                        <span class="tag">Canva</span>
-                        <span class="tag">Blender</span>
-                        <span class="tag">3DS Max</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>AI Tools</h3>
-                    <div class="skill-tags">
-                        <span class="tag">GitHub Copilot</span>
-                        <span class="tag">ChatGPT</span>
-                        <span class="tag">Claude</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="advisory">
-            <h2>Advisory Roles</h2>
-            <ul>
-                <li><strong>SRG Gaming LLC (Dubai):</strong> Set up Pakistan operations – hiring, pipeline, strategy.</li>
-                <li><strong>TW Games Studio (Pakistan):</strong> Co-founded offshoot of Spark Game Studios.</li>
-                <li><strong>Imperial Arts Pty Ltd (Australia):</strong> Consulted on game planning & execution strategy.</li>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-inner">
+            <a href="#top" class="nav-logo">JA<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
-        </section>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="top">
+        <div class="hero-badge">Game Developer &amp; Designer</div>
+        <h1>Hi, I'm <span>Junaid Ahmad</span></h1>
+        <p>Founder of Spark Game Studios. 8+ years building hit mobile games with Unity3D — shipped 10+ titles with over 150 million downloads worldwide.</p>
+        <div class="hero-cta">
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <a href="mailto:ja4893@rit.edu" class="btn btn-outline">Get In Touch</a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <span class="stat-num">150M+</span>
+                <span class="stat-label">Total Downloads</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num">10+</span>
+                <span class="stat-label">Games Shipped</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num">8+</span>
+                <span class="stat-label">Years Experience</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num">25+</span>
+                <span class="stat-label">Team Members Led</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <div class="page" id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-card">
+            <p>I'm a passionate software engineer and game developer with 8 years of hands-on experience building and shipping mobile games. I founded <strong>Spark Game Studios</strong> in 2016, growing it into a studio responsible for titles with over 150 million downloads on Google Play. I specialise in Unity3D, C#, gameplay programming, UI/UX design, and 3D content creation. Currently pursuing an M.S. in Computer Science at <strong>Rochester Institute of Technology</strong>, I'm eager to blend creative and technical skills to build exceptional interactive experiences.</p>
+        </div>
     </div>
+
+    <!-- Experience -->
+    <div class="page" id="experience">
+        <h2 class="section-title">Experience</h2>
+        <div class="timeline-item">
+            <div class="tl-header">
+                <span class="tl-company">Spark Game Studios</span>
+                <span class="tl-date">Sep 2016 – Present</span>
+            </div>
+            <div class="tl-role">Founder / CEO — Pakistan</div>
+            <ul class="tl-list">
+                <li>Designed &amp; developed 10+ Unity C# mobile games, published on Google Play with 150M+ downloads.</li>
+                <li>Built custom editor tools, save/load systems, and optimised performance using object pooling &amp; batching.</li>
+                <li>Created complete UI kits in Photoshop and 3D assets in Blender for all game titles.</li>
+                <li>Integrated ads, IAPs, and analytics SDKs (AdMob, Unity IAP, GameAnalytics).</li>
+                <li>Led a cross-functional team of 25+ developers, designers, and marketers; established technical conventions &amp; pipelines.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Projects -->
+    <div class="page" id="projects">
+        <h2 class="section-title">Key Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-icon">🚗</div>
+                <h3>Car Driving School</h3>
+                <p class="project-tools">Unity · C# · Blender · Photoshop</p>
+                <p class="project-desc">Simulation game with 100M+ downloads, ranked #12 globally in Q4 2021. Developed vehicle physics, UI systems, and mission logic from scratch.</p>
+                <div class="project-links">
+                    <span class="link-pending">Google Play – coming soon</span>
+                    <span class="link-pending">App Store – coming soon</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-icon">⛏️</div>
+                <h3>Sands of Secrets</h3>
+                <p class="project-tools">Unity · C# · Shader Graph · Blender</p>
+                <p class="project-desc">Digging game featuring real-time terrain deformation and dynamic lighting. Solo-developed and shipped in just 2 weeks.</p>
+                <div class="project-links">
+                    <span class="link-pending">App Store – coming soon</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-icon">🎨</div>
+                <h3>Car Color Sort</h3>
+                <p class="project-tools">Unity · C# · ScriptableObjects · Photoshop</p>
+                <p class="project-desc">Puzzle game with procedural level generation via ScriptableObjects, featuring 1,000 hand-crafted levels.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="page" id="skills">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>Languages</h3>
+                <div class="tag-list">
+                    <span class="tag">C#</span>
+                    <span class="tag">Java</span>
+                    <span class="tag">Python</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h3>Game Engines</h3>
+                <div class="tag-list">
+                    <span class="tag green">Unity3D</span>
+                    <span class="tag green">Unreal Engine</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h3>Design Tools</h3>
+                <div class="tag-list">
+                    <span class="tag cyan">Photoshop</span>
+                    <span class="tag cyan">Illustrator</span>
+                    <span class="tag cyan">Premiere</span>
+                    <span class="tag cyan">Blender</span>
+                    <span class="tag cyan">3DS Max</span>
+                    <span class="tag cyan">Canva</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h3>AI Tools</h3>
+                <div class="tag-list">
+                    <span class="tag pink">GitHub Copilot</span>
+                    <span class="tag pink">ChatGPT</span>
+                    <span class="tag pink">Claude</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Education -->
+    <div class="page" id="education">
+        <h2 class="section-title">Education</h2>
+        <div class="edu-grid">
+            <div class="edu-card">
+                <p class="edu-school">Rochester Institute of Technology (RIT)</p>
+                <p class="edu-degree">M.S. Computer Science</p>
+                <p class="edu-date">Rochester, NY · Expected Jul 2027</p>
+            </div>
+            <div class="edu-card">
+                <p class="edu-school">University of Engineering &amp; Technology (UET) Peshawar</p>
+                <p class="edu-degree">B.S. Civil Engineering</p>
+                <p class="edu-date">Pakistan · Sep 2017</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Advisory -->
+    <div class="page" id="advisory">
+        <h2 class="section-title">Advisory Roles</h2>
+        <div class="advisory-grid">
+            <div class="advisory-card">
+                <strong>SRG Gaming LLC — Dubai</strong>
+                <p>Set up Pakistan operations including hiring, pipeline design, and growth strategy.</p>
+            </div>
+            <div class="advisory-card">
+                <strong>TW Games Studio — Pakistan</strong>
+                <p>Co-founded as an offshoot of Spark Game Studios to expand studio capacity.</p>
+            </div>
+            <div class="advisory-card">
+                <strong>Imperial Arts Pty Ltd — Australia</strong>
+                <p>Consulted on game planning, production pipelines, and execution strategy.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact -->
+    <section class="contact-section" id="contact">
+        <h2>Let's Work Together</h2>
+        <p>Interested in collaborating, hiring, or just want to say hi? My inbox is always open.</p>
+        <div class="contact-links">
+            <a href="mailto:ja4893@rit.edu" class="btn btn-primary">ja4893@rit.edu</a>
+            <a href="https://linkedin.com/in/junaid-ahmad-a259a177" target="_blank" rel="noopener noreferrer" class="btn btn-outline">LinkedIn</a>
+        </div>
+        <p style="margin-top:1.5rem; font-size:0.85rem; color:#334155;">Rochester, NY &nbsp;·&nbsp; (585) 506-7836</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        &copy; <span id="year"></span> Junaid Ahmad · junaidahd.com
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+
 </body>
 </html>
