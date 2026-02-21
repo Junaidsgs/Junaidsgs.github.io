@@ -154,6 +154,14 @@
             position: relative;
             overflow: hidden;
         }
+        #hero-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .hero > *:not(#hero-canvas) { position: relative; z-index: 1; }
         .hero::before {
             content: "";
             position: absolute;
@@ -331,6 +339,23 @@
 
         /* ── Page sections ── */
         .page { max-width: 1100px; margin: 0 auto; padding: 6rem 1.5rem; }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 0.6rem;
+        }
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 48px; height: 3px;
+            background: var(--primary);
+            border-radius: 999px;
+        }
 
         /* ── Projects ── */
         .projects-grid {
@@ -871,6 +896,7 @@
 
     <!-- Hero -->
     <section class="hero" id="top">
+        <canvas id="hero-canvas"></canvas>
         <div class="hero-badge">Game Developer &amp; Designer</div>
         <h1>Hi, I'm <span id="typewriter">Junaid Ahmad</span></h1>
         <p>Founder of Spark Game Studios. 8+ years building hit mobile games with Unity3D — shipped 20+ titles with over 150 million downloads worldwide.</p>
@@ -906,7 +932,7 @@
     <div class="page reveal" id="about">
         <h2 class="section-title">About Me</h2>
         <div class="about-card">
-            <p>I'm a passionate software engineer and game developer with 8 years of hands-on experience building and shipping mobile games. I founded <strong>Spark Game Studios</strong> in 2016, growing it into a studio responsible for titles with over 150 million downloads on Google Play. I specialise in Unity3D, C#, gameplay programming, UI/UX design, and 3D content creation. Currently pursuing an M.S. in Computer Science at <strong>Rochester Institute of Technology</strong>, I'm eager to blend creative and technical skills to build exceptional interactive experiences.</p>
+            <p>I'm a passionate software engineer and game developer with 8 years of hands-on experience building and shipping mobile games. I founded <strong>Spark Game Studios</strong> in 2016, growing it into a studio responsible for titles with over 150 million downloads on Google Play. I specialize in Unity3D, C#, gameplay programming, UI/UX design, and 3D content creation. Currently pursuing an M.S. in Computer Science at <strong>Rochester Institute of Technology</strong>, I'm eager to blend creative and technical skills to build exceptional interactive experiences.</p>
         </div>
     </div>
 
@@ -922,7 +948,7 @@
                 <div class="tl-role">Founder / CEO — Pakistan</div>
                 <ul class="tl-list">
                     <li><i class="fas fa-check-circle"></i> Designed & developed 20+ Unity C# mobile games, published on Google Play with 150M+ downloads.</li>
-                    <li><i class="fas fa-check-circle"></i> Built custom editor tools, save/load systems, and optimised performance using object pooling & batching.</li>
+                    <li><i class="fas fa-check-circle"></i> Built custom editor tools, save/load systems, and optimized performance using object pooling & batching.</li>
                     <li><i class="fas fa-check-circle"></i> Created complete UI kits in Photoshop and 3D assets in Blender for all game titles.</li>
                     <li><i class="fas fa-check-circle"></i> Integrated ads, IAPs, and analytics SDKs (AdMob, Unity IAP, GameAnalytics).</li>
                     <li><i class="fas fa-check-circle"></i> Led a cross-functional team of 25+ developers, designers, and marketers.</li>
@@ -1019,25 +1045,32 @@
     <div class="page reveal" id="design">
         <h2 class="section-title">Design &amp; Branding</h2>
         <div class="design-grid">
-            <a href="https://www.behance.net/junaid_ahd" target="_blank" class="design-item">
+            <a href="https://www.behance.net/gallery/244542213/UI-Projects" target="_blank" class="design-item">
                 <img src="assets/img/design/ui-ux.jpg" alt="Game UI/UX Design">
                 <div class="design-overlay">
                     <span class="design-category">UI/UX Design</span>
                     <h3 class="design-title">Game Interfaces &amp; HUDs</h3>
                 </div>
             </a>
-            <a href="https://www.behance.net/junaid_ahd" target="_blank" class="design-item">
+            <a href="https://www.behance.net/gallery/86717011/Logos-I-worked-on" target="_blank" class="design-item">
                 <img src="assets/img/design/branding.jpg" alt="Branding & Logos">
                 <div class="design-overlay">
                     <span class="design-category">Branding</span>
                     <h3 class="design-title">Studio Identity &amp; Logos</h3>
                 </div>
             </a>
-            <a href="https://www.behance.net/junaid_ahd" target="_blank" class="design-item">
+            <a href="https://www.behance.net/gallery/244542631/Game-Promotional-Content" target="_blank" class="design-item">
                 <img src="assets/img/design/marketing.jpg" alt="Marketing Materials">
                 <div class="design-overlay">
                     <span class="design-category">Marketing</span>
                     <h3 class="design-title">Game Posters &amp; Store Art</h3>
+                </div>
+            </a>
+            <a href="https://www.behance.net/gallery/86717239/Photography" target="_blank" class="design-item">
+                <img src="assets/img/design/photography.jpg" alt="Photography">
+                <div class="design-overlay">
+                    <span class="design-category">Photography</span>
+                    <h3 class="design-title">Visual Storytelling</h3>
                 </div>
             </a>
         </div>
@@ -1481,7 +1514,81 @@
             setTimeout(type, typeSpeed);
         }
 
-        document.addEventListener('DOMContentLoaded', type);
+        document.addEventListener('DOMContentLoaded', () => {
+            type();
+            initParticles();
+        });
+
+        // Hero Particles Logic
+        function initParticles() {
+            const canvas = document.getElementById('hero-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let width, height;
+
+            function resize() {
+                width = canvas.width = canvas.offsetWidth;
+                height = canvas.height = canvas.offsetHeight;
+            }
+
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Particle {
+                constructor() {
+                    this.init();
+                }
+                init() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.size = Math.random() * 2;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+                }
+                draw() {
+                    ctx.fillStyle = 'rgba(6, 182, 212, 0.3)';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                
+                // Draw lines between nearby particles
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 100) {
+                            ctx.strokeStyle = `rgba(6, 182, 212, ${0.15 * (1 - dist / 100)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
     </script>
 
 </body>
