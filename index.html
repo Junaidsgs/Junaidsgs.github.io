@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Junaid Ahmad – Game Developer, Designer & Software Engineer. Founder of Spark Game Studios. 150M+ game downloads.">
     <title>Junaid Ahmad | Game Developer &amp; Designer</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ── Reset & tokens ── */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -13,12 +15,25 @@
             --primary:   #4f46e5;
             --primary-d: #3730a3;
             --accent:    #06b6d4;
-            --text:      #1e293b;
-            --muted:     #64748b;
-            --bg:        #0f172a;
-            --surface:   #1e293b;
-            --card:      #ffffff;
             --radius:    12px;
+            
+            /* Theme Variables */
+            --bg-body:   #f1f5f9;
+            --bg-nav:    #0f172a;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --card-bg:   #ffffff;
+            --card-border: #f1f5f9;
+            --hero-bg:   #0f172a;
+        }
+
+        [data-theme="dark"] {
+            --bg-body:   #020617;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg:   #1e293b;
+            --card-border: #334155;
+            --bg-nav:    #020617;
         }
 
         html { scroll-behavior: smooth; }
@@ -26,8 +41,9 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.7;
-            color: var(--text);
-            background: #f1f5f9;
+            color: var(--text-main);
+            background: var(--bg-body);
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         /* ── Nav ── */
@@ -35,8 +51,9 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: var(--bg);
+            background: var(--bg-nav);
             border-bottom: 1px solid rgba(255,255,255,0.06);
+            transition: background 0.3s ease;
         }
         .nav-inner {
             max-width: 1000px;
@@ -45,14 +62,15 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 56px;
+            height: 64px;
         }
         .nav-logo {
             color: #fff;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             text-decoration: none;
             letter-spacing: 0.02em;
+            z-index: 1001;
         }
         .nav-logo span { color: var(--accent); }
         .nav-links {
@@ -63,17 +81,64 @@
         .nav-links a {
             color: #94a3b8;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            font-weight: 500;
             transition: color 0.2s;
         }
         .nav-links a:hover { color: #fff; }
 
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* ── Theme Toggle ── */
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 0.5rem;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .theme-toggle:hover { color: #fff; }
+        .theme-toggle .fa-sun { display: none; }
+        [data-theme="dark"] .theme-toggle .fa-sun { display: block; }
+        [data-theme="dark"] .theme-toggle .fa-moon { display: none; }
+
+        /* ── Mobile Nav Toggle ── */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 0.5rem;
+        }
+
         /* ── Hero ── */
         .hero {
-            background: var(--bg);
+            background: radial-gradient(circle at 50% 50%, #1e293b 0%, var(--hero-bg) 100%);
             color: #fff;
             text-align: center;
-            padding: 6rem 1.5rem 5rem;
+            padding: 8rem 1.5rem 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            opacity: 0.1;
+            pointer-events: none;
         }
         .hero-badge {
             display: inline-block;
@@ -86,154 +151,143 @@
             letter-spacing: 0.08em;
             text-transform: uppercase;
             margin-bottom: 1.5rem;
+            animation: fadeInDown 0.8s ease-out;
         }
         .hero h1 {
-            font-size: clamp(2.2rem, 6vw, 3.5rem);
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
             font-weight: 800;
-            line-height: 1.15;
-            margin-bottom: 1rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
         }
         .hero h1 span { color: var(--accent); }
         .hero p {
-            max-width: 580px;
-            margin: 0 auto 2rem;
+            max-width: 640px;
+            margin: 0 auto 2.5rem;
             color: #94a3b8;
-            font-size: 1.05rem;
+            font-size: 1.15rem;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
         }
         .hero-cta {
             display: inline-flex;
-            gap: 1rem;
+            gap: 1.25rem;
             flex-wrap: wrap;
             justify-content: center;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
         }
         .btn {
             display: inline-block;
-            padding: 0.65rem 1.6rem;
+            padding: 0.8rem 2rem;
             border-radius: 8px;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 600;
             text-decoration: none;
-            transition: opacity 0.2s, transform 0.15s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+        .btn:hover { 
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 20px -10px var(--primary);
+        }
         .btn-primary { background: var(--primary); color: #fff; }
-        .btn-outline { border: 1.5px solid #475569; color: #cbd5e1; }
-        .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+        .btn-outline { border: 2px solid #475569; color: #cbd5e1; }
+        .btn-outline:hover { border-color: var(--accent); color: var(--accent); box-shadow: 0 10px 20px -10px var(--accent); }
 
         .hero-stats {
             display: flex;
             justify-content: center;
-            gap: 3rem;
-            margin-top: 3.5rem;
+            gap: clamp(1rem, 5vw, 4rem);
+            margin-top: 4rem;
             flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.8s both;
         }
-        .stat { text-align: center; }
-        .stat-num {
-            display: block;
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--accent);
+
+        /* ── Animations ── */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .stat-label { font-size: 0.8rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.06em; }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* ── Page sections ── */
-        .page { max-width: 1000px; margin: 0 auto; padding: 4rem 1.5rem; }
-
-        .section-title {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--text);
-            margin-bottom: 2rem;
-            position: relative;
-            padding-bottom: 0.6rem;
-        }
-        .section-title::after {
-            content: "";
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 48px; height: 3px;
-            background: var(--primary);
-            border-radius: 999px;
-        }
-
-        /* ── About ── */
-        .about-card {
-            background: var(--card);
-            border-radius: var(--radius);
-            padding: 2rem;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-        }
-        .about-card p { color: #475569; font-size: 1rem; }
-
-        /* ── Experience ── */
-        .timeline-item {
-            background: var(--card);
-            border-radius: var(--radius);
-            padding: 1.75rem 2rem;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-            border-left: 4px solid var(--primary);
-            margin-bottom: 1.5rem;
-        }
-        .tl-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-            margin-bottom: 0.25rem;
-        }
-        .tl-company { font-weight: 700; font-size: 1.1rem; }
-        .tl-date { font-size: 0.85rem; color: var(--muted); }
-        .tl-role { color: var(--primary); font-size: 0.9rem; font-style: italic; margin-bottom: 1rem; }
-        .tl-list { list-style: none; padding: 0; }
-        .tl-list li {
-            position: relative;
-            padding-left: 1.25rem;
-            margin-bottom: 0.45rem;
-            color: #475569;
-            font-size: 0.95rem;
-        }
-        .tl-list li::before {
-            content: "▸";
-            position: absolute;
-            left: 0;
-            color: var(--primary);
-        }
+        .page { max-width: 1100px; margin: 0 auto; padding: 6rem 1.5rem; }
 
         /* ── Projects ── */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
         }
         .project-card {
             background: var(--card);
             border-radius: var(--radius);
-            padding: 1.75rem;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #f1f5f9;
         }
-        .project-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+        .project-card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+            border-color: var(--primary);
+        }
+        .project-media {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+        .project-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .project-card:hover .project-media img {
+            transform: scale(1.05);
+        }
+        .project-content {
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
         .project-icon {
-            width: 44px; height: 44px;
-            border-radius: 10px;
+            width: 48px; height: 48px;
+            border-radius: 12px;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+            margin-top: -2.5rem;
+            position: relative;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .project-card h3 { font-size: 1.05rem; margin-bottom: 0.3rem; }
-        .project-tools { font-size: 0.8rem; color: var(--muted); font-style: italic; margin-bottom: 0.75rem; }
-        .project-desc { font-size: 0.9rem; color: #475569; flex: 1; }
+        .project-card h3 { font-size: 1.2rem; margin-bottom: 0.4rem; color: var(--bg); }
+        .project-tools { font-size: 0.85rem; color: var(--muted); font-weight: 500; margin-bottom: 1rem; }
+        .project-desc { font-size: 0.95rem; color: var(--text-main); opacity: 0.8; flex: 1; line-height: 1.6; }
         .project-links { margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
         .project-links a {
             font-size: 0.8rem;
             font-weight: 600;
             color: var(--primary);
             text-decoration: none;
-            border: 1px solid #e0e7ff;
+            border: 1px solid var(--card-border);
             padding: 0.25rem 0.7rem;
             border-radius: 6px;
             transition: background 0.15s, color 0.15s;
@@ -241,11 +295,85 @@
         .project-links a:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
         .project-links .link-pending {
             font-size: 0.8rem;
-            color: #94a3b8;
-            border: 1px dashed #cbd5e1;
+            color: var(--text-muted);
+            border: 1px dashed var(--card-border);
             padding: 0.25rem 0.7rem;
             border-radius: 6px;
         }
+
+        /* ── Modal ── */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 1rem;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: var(--card-bg);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            border-radius: var(--radius);
+            overflow-y: auto;
+            position: relative;
+            animation: modalFadeUp 0.4s ease;
+            border: 1px solid var(--card-border);
+        }
+        @keyframes modalFadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-close {
+            position: absolute;
+            top: 1.5rem; right: 1.5rem;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            border: none;
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+        }
+        .modal-close:hover { background: var(--primary); transform: rotate(90deg); }
+        .modal-body { padding: 3rem 2.5rem; }
+        .modal-img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .modal-title { font-size: 2rem; margin-bottom: 0.5rem; color: var(--text-main); }
+        .modal-meta { color: var(--primary); font-weight: 600; margin-bottom: 1.5rem; }
+        .modal-text { color: var(--text-main); opacity: 0.9; line-height: 1.8; margin-bottom: 2rem; }
+        
+        /* ── Back to Top ── */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem; right: 2rem;
+            background: var(--primary);
+            color: #fff;
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(79,70,229,0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+        }
+        .back-to-top:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(79,70,229,0.5); }
+        .back-to-top.visible { display: flex; }
 
         /* ── Skills ── */
         .skills-grid {
@@ -254,30 +382,32 @@
             gap: 1.25rem;
         }
         .skill-card {
-            background: var(--card);
+            background: var(--card-bg);
             border-radius: var(--radius);
             padding: 1.4rem;
             box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            border: 1px solid var(--card-border);
+            transition: background 0.3s ease, border 0.3s ease;
         }
         .skill-card h3 {
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 0.07em;
-            color: var(--muted);
+            color: var(--text-muted);
             margin-bottom: 0.75rem;
         }
         .tag-list { display: flex; flex-wrap: wrap; gap: 0.45rem; }
         .tag {
-            background: #ede9fe;
-            color: var(--primary-d);
+            background: rgba(79,70,229,0.1);
+            color: var(--primary);
             padding: 0.2rem 0.65rem;
             border-radius: 6px;
             font-size: 0.82rem;
             font-weight: 500;
         }
-        .tag.green { background: #d1fae5; color: #065f46; }
-        .tag.cyan  { background: #cffafe; color: #155e75; }
-        .tag.pink  { background: #fce7f3; color: #9d174d; }
+        .tag.green { background: rgba(16,185,129,0.1); color: #10b981; }
+        .tag.cyan  { background: rgba(6,182,212,0.1); color: #06b6d4; }
+        .tag.pink  { background: rgba(236,72,153,0.1); color: #ec4899; }
 
         /* ── Education ── */
         .edu-grid {
@@ -286,15 +416,19 @@
             gap: 1.25rem;
         }
         .edu-card {
-            background: var(--card);
+            background: var(--card-bg);
             border-radius: var(--radius);
             padding: 1.6rem;
             box-shadow: 0 2px 12px rgba(0,0,0,0.07);
             border-top: 4px solid var(--accent);
+            border-left: 1px solid var(--card-border);
+            border-right: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
+            transition: background 0.3s ease, border 0.3s ease;
         }
-        .edu-school { font-weight: 700; margin-bottom: 0.2rem; }
+        .edu-school { font-weight: 700; color: var(--text-main); margin-bottom: 0.2rem; }
         .edu-degree { font-size: 0.9rem; color: var(--primary); font-style: italic; margin-bottom: 0.4rem; }
-        .edu-date { font-size: 0.82rem; color: var(--muted); }
+        .edu-date { font-size: 0.82rem; color: var(--text-muted); }
 
         /* ── Advisory ── */
         .advisory-grid {
@@ -303,13 +437,15 @@
             gap: 1.25rem;
         }
         .advisory-card {
-            background: var(--card);
+            background: var(--card-bg);
             border-radius: var(--radius);
             padding: 1.5rem;
             box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            border: 1px solid var(--card-border);
+            transition: background 0.3s ease, border 0.3s ease;
         }
-        .advisory-card strong { display: block; font-size: 0.95rem; margin-bottom: 0.35rem; color: var(--primary-d); }
-        .advisory-card p { font-size: 0.88rem; color: #475569; }
+        .advisory-card strong { display: block; font-size: 0.95rem; margin-bottom: 0.35rem; color: var(--primary); }
+        .advisory-card p { font-size: 0.88rem; color: var(--text-main); opacity: 0.8; }
 
         /* ── Contact ── */
         .contact-section {
@@ -338,11 +474,39 @@
         }
 
         /* ── Responsive ── */
-        @media (max-width: 600px) {
-            .nav-links { display: none; }
-            .hero { padding: 4rem 1rem 3rem; }
-            .hero-stats { gap: 2rem; }
-            .page { padding: 2.5rem 1rem; }
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle { display: block; }
+            .nav-links {
+                position: fixed;
+                top: 0; right: -100%;
+                width: 80%; height: 100vh;
+                background: #0f172a;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2.5rem;
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+                z-index: 1000;
+            }
+            .nav-links.active { right: 0; }
+            .nav-links a { font-size: 1.25rem; }
+
+            .hero { padding: 6rem 1rem 4rem; }
+            .hero-stats { gap: 1.5rem; }
+            .page { padding: 4rem 1.25rem; }
+            .hero h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -352,7 +516,14 @@
     <nav>
         <div class="nav-inner">
             <a href="#top" class="nav-logo">JA<span>.</span></a>
-            <ul class="nav-links">
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">☰</button>
+            </div>
+            <ul class="nav-links" id="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#projects">Projects</a></li>
@@ -378,7 +549,7 @@
                 <span class="stat-label">Total Downloads</span>
             </div>
             <div class="stat">
-                <span class="stat-num">10+</span>
+                <span class="stat-num">20+</span>
                 <span class="stat-label">Games Shipped</span>
             </div>
             <div class="stat">
@@ -393,7 +564,7 @@
     </section>
 
     <!-- About -->
-    <div class="page" id="about">
+    <div class="page reveal" id="about">
         <h2 class="section-title">About Me</h2>
         <div class="about-card">
             <p>I'm a passionate software engineer and game developer with 8 years of hands-on experience building and shipping mobile games. I founded <strong>Spark Game Studios</strong> in 2016, growing it into a studio responsible for titles with over 150 million downloads on Google Play. I specialise in Unity3D, C#, gameplay programming, UI/UX design, and 3D content creation. Currently pursuing an M.S. in Computer Science at <strong>Rochester Institute of Technology</strong>, I'm eager to blend creative and technical skills to build exceptional interactive experiences.</p>
@@ -401,88 +572,137 @@
     </div>
 
     <!-- Experience -->
-    <div class="page" id="experience">
-        <h2 class="section-title">Experience</h2>
+    <div class="page reveal" id="experience">
+        <h2 class="section-title">Professional Experience</h2>
         <div class="timeline-item">
             <div class="tl-header">
-                <span class="tl-company">Spark Game Studios</span>
-                <span class="tl-date">Sep 2016 – Present</span>
+                <span class="tl-company"><i class="fas fa-briefcase"></i> Spark Game Studios</span>
+                <span class="tl-date"><i class="far fa-calendar-alt"></i> Sep 2016 – Present</span>
             </div>
             <div class="tl-role">Founder / CEO — Pakistan</div>
             <ul class="tl-list">
-                <li>Designed &amp; developed 10+ Unity C# mobile games, published on Google Play with 150M+ downloads.</li>
-                <li>Built custom editor tools, save/load systems, and optimised performance using object pooling &amp; batching.</li>
-                <li>Created complete UI kits in Photoshop and 3D assets in Blender for all game titles.</li>
-                <li>Integrated ads, IAPs, and analytics SDKs (AdMob, Unity IAP, GameAnalytics).</li>
-                <li>Led a cross-functional team of 25+ developers, designers, and marketers; established technical conventions &amp; pipelines.</li>
+                <li><i class="fas fa-check-circle"></i> Designed &amp; developed 20+ Unity C# mobile games, published on Google Play with 150M+ downloads.</li>
+                <li><i class="fas fa-check-circle"></i> Built custom editor tools, save/load systems, and optimised performance using object pooling &amp; batching.</li>
+                <li><i class="fas fa-check-circle"></i> Created complete UI kits in Photoshop and 3D assets in Blender for all game titles.</li>
+                <li><i class="fas fa-check-circle"></i> Integrated ads, IAPs, and analytics SDKs (AdMob, Unity IAP, GameAnalytics).</li>
+                <li><i class="fas fa-check-circle"></i> Led a cross-functional team of 25+ developers, designers, and marketers.</li>
             </ul>
         </div>
     </div>
 
     <!-- Projects -->
-    <div class="page" id="projects">
+    <div class="page reveal" id="projects">
         <h2 class="section-title">Key Projects</h2>
         <div class="projects-grid">
             <div class="project-card">
-                <div class="project-icon">🚗</div>
-                <h3>Car Driving School</h3>
-                <p class="project-tools">Unity · C# · Blender · Photoshop</p>
-                <p class="project-desc">Simulation game with 100M+ downloads, ranked #12 globally in Q4 2021. Developed vehicle physics, UI systems, and mission logic from scratch.</p>
-                <div class="project-links">
-                    <span class="link-pending">Google Play – coming soon</span>
-                    <span class="link-pending">App Store – coming soon</span>
+                <div class="project-media">
+                    <img src="https://img.youtube.com/vi/bqQqvVWjlN8/maxresdefault.jpg" alt="Car Driving School Gameplay">
+                </div>
+                <div class="project-content">
+                    <div class="project-icon">🚗</div>
+                    <h3>Car Driving School</h3>
+                    <p class="project-tools">Unity · C# · Blender · Photoshop</p>
+                    <p class="project-desc">Simulation game with 100M+ downloads, ranked #12 globally in Q4 2021. Developed vehicle physics, UI systems, and mission logic from scratch.</p>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.SGS.DrivingSchoolGames.RealCarParkingSimulator" target="_blank" rel="noopener noreferrer">Google Play</a>
+                        <a href="https://apps.apple.com/us/app/real-car-driving-school-games/id1565923448" target="_blank" rel="noopener noreferrer">App Store</a>
+                        <a href="https://www.youtube.com/watch?v=bqQqvVWjlN8&list=PLlZYdAxVoWyhiOsDNJfN8pgYQP6u5cIzK" target="_blank" rel="noopener noreferrer" style="border-color: var(--accent); color: var(--accent);">Watch Gameplay</a>
+                    </div>
                 </div>
             </div>
             <div class="project-card">
-                <div class="project-icon">⛏️</div>
-                <h3>Sands of Secrets</h3>
-                <p class="project-tools">Unity · C# · Shader Graph · Blender</p>
-                <p class="project-desc">Digging game featuring real-time terrain deformation and dynamic lighting. Solo-developed and shipped in just 2 weeks.</p>
-                <div class="project-links">
-                    <span class="link-pending">App Store – coming soon</span>
+                <div class="project-media">
+                    <img src="https://play-lh.googleusercontent.com/970P73qW_e_5KzE5uS8u9m5fF-Y0x9H0N0P9N9B9x9C9D9E9F9G9H9I9J9K9L9M=w800" alt="Offroad Multi Cargo Truck Gameplay">
+                </div>
+                <div class="project-content">
+                    <div class="project-icon">🚛</div>
+                    <h3>Offroad Multi Cargo Truck</h3>
+                    <p class="project-tools">Unity · C# · Vehicle Physics · Level Design</p>
+                    <p class="project-desc">A complex simulation featuring realistic truck physics across diverse environments. Developed multiple game modes involving construction tasks and heavy machinery transport.</p>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.DutyToCraftGames.OffroadMulti.CargoTruck" target="_blank" rel="noopener noreferrer">Google Play</a>
+                        <span class="link-pending">App Store</span>
+                    </div>
                 </div>
             </div>
             <div class="project-card">
-                <div class="project-icon">🎨</div>
-                <h3>Car Color Sort</h3>
-                <p class="project-tools">Unity · C# · ScriptableObjects · Photoshop</p>
-                <p class="project-desc">Puzzle game with procedural level generation via ScriptableObjects, featuring 1,000 hand-crafted levels.</p>
+                <div class="project-media">
+                    <img src="https://play-lh.googleusercontent.com/970P73qW_e_5KzE5uS8u9m5fF-Y0x9H0N0P9N9B9x9C9D9E9F9G9H9I9J9K9L9M=w800" alt="Supermarket Simulator Gameplay">
+                </div>
+                <div class="project-content">
+                    <div class="project-icon">🛒</div>
+                    <h3>Supermarket Simulator</h3>
+                    <p class="project-tools">Unity · C# · FPS Controller · Optimization</p>
+                    <p class="project-desc">A high-performance simulation game featuring complex inventory management systems and smooth FPS controls. I led the environment design and optimized 3D assets for mobile performance.</p>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.sgs.supermarket.simulator" target="_blank" rel="noopener noreferrer">Google Play</a>
+                        <span class="link-pending">App Store</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-media">
+                    <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&q=80&w=800" alt="Sands of Secrets Gameplay">
+                </div>
+                <div class="project-content">
+                    <div class="project-icon">⛏️</div>
+                    <h3>Sands of Secrets</h3>
+                    <p class="project-tools">Unity · C# · Shader Graph · Blender</p>
+                    <p class="project-desc">Digging game featuring real-time terrain deformation and dynamic lighting. Solo-developed and shipped in just 2 weeks.</p>
+                    <div class="project-links">
+                        <a href="https://apps.apple.com/us/app/sands-of-secrets-digging-deep/id6743148380" target="_blank" rel="noopener noreferrer">App Store</a>
+                        <span class="link-pending">Google Play</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-media">
+                    <img src="https://img.youtube.com/vi/Uiglet3U0ec/maxresdefault.jpg" alt="Car Color Sort Gameplay">
+                </div>
+                <div class="project-content">
+                    <div class="project-icon">🎨</div>
+                    <h3>Car Color Sort</h3>
+                    <p class="project-tools">Unity · C# · ScriptableObjects · Photoshop</p>
+                    <p class="project-desc">Puzzle game with procedural level generation via ScriptableObjects, featuring 1,000 hand-crafted levels.</p>
+                    <div class="project-links">
+                        <a href="https://www.youtube.com/watch?v=Uiglet3U0ec" target="_blank" rel="noopener noreferrer" style="border-color: var(--accent); color: var(--accent);">Watch Gameplay</a>
+                        <span class="link-pending">Google Play</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Skills -->
-    <div class="page" id="skills">
+    <div class="page reveal" id="skills">
         <h2 class="section-title">Technical Skills</h2>
         <div class="skills-grid">
             <div class="skill-card">
-                <h3>Languages</h3>
+                <h3><i class="fas fa-code"></i> Languages</h3>
                 <div class="tag-list">
-                    <span class="tag">C#</span>
-                    <span class="tag">Java</span>
-                    <span class="tag">Python</span>
+                    <span class="tag"><i class="fab fa-hash"></i> C#</span>
+                    <span class="tag"><i class="fab fa-java"></i> Java</span>
+                    <span class="tag"><i class="fab fa-python"></i> Python</span>
                 </div>
             </div>
             <div class="skill-card">
-                <h3>Game Engines</h3>
+                <h3><i class="fas fa-gamepad"></i> Game Engines</h3>
                 <div class="tag-list">
-                    <span class="tag green">Unity3D</span>
-                    <span class="tag green">Unreal Engine</span>
+                    <span class="tag green"><i class="fab fa-unity"></i> Unity3D</span>
+                    <span class="tag green"><i class="fas fa-cube"></i> Unreal Engine</span>
                 </div>
             </div>
             <div class="skill-card">
-                <h3>Design Tools</h3>
+                <h3><i class="fas fa-paint-brush"></i> Design Tools</h3>
                 <div class="tag-list">
                     <span class="tag cyan">Photoshop</span>
                     <span class="tag cyan">Illustrator</span>
-                    <span class="tag cyan">Premiere</span>
                     <span class="tag cyan">Blender</span>
                     <span class="tag cyan">3DS Max</span>
-                    <span class="tag cyan">Canva</span>
                 </div>
             </div>
             <div class="skill-card">
-                <h3>AI Tools</h3>
+                <h3><i class="fas fa-robot"></i> AI Tools</h3>
                 <div class="tag-list">
                     <span class="tag pink">GitHub Copilot</span>
                     <span class="tag pink">ChatGPT</span>
@@ -493,7 +713,7 @@
     </div>
 
     <!-- Education -->
-    <div class="page" id="education">
+    <div class="page reveal" id="education">
         <h2 class="section-title">Education</h2>
         <div class="edu-grid">
             <div class="edu-card">
@@ -510,7 +730,7 @@
     </div>
 
     <!-- Advisory -->
-    <div class="page" id="advisory">
+    <div class="page reveal" id="advisory">
         <h2 class="section-title">Advisory Roles</h2>
         <div class="advisory-grid">
             <div class="advisory-card">
@@ -529,7 +749,7 @@
     </div>
 
     <!-- Contact -->
-    <section class="contact-section" id="contact">
+    <section class="contact-section reveal" id="contact">
         <h2>Let's Work Together</h2>
         <p>Interested in collaborating, hiring, or just want to say hi? My inbox is always open.</p>
         <div class="contact-links">
@@ -544,8 +764,75 @@
         &copy; <span id="year"></span> Junaid Ahmad · junaidahd.com
     </footer>
 
+    <!-- Project Modal -->
+    <div class="modal-overlay" id="project-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-body" id="modal-body">
+                <!-- Content injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme');
+
+        if (currentTheme) {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+        }
+
+        themeToggle.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            if (theme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const navToggle = document.getElementById('nav-toggle');
+        const navLinks = document.getElementById('nav-links');
+
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                navToggle.textContent = '☰';
+            });
+        });
+
+        // Reveal animations on scroll
+        const reveal = () => {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', reveal);
+        // Initial check
+        reveal();
     </script>
 
 </body>
