@@ -47,6 +47,6 @@ Since this is a static website, you can run it without any complex build tools:
 
 ## 📬 Contact
 
-- **Email**: [junaidsgs@gmail.com](mailto:junaidsgs@gmail.com)
-- **LinkedIn**: [linkedin.com/in/junaidahmad1997](https://www.linkedin.com/in/junaidahmad1997)
-- **Behance**: [behance.net/junaidahmad1](https://www.behance.net/junaidahmad1)
+- **Email**: [junaidahmad1995@gmail.com](mailto:junaidahmad1995@gmail.com)
+- **LinkedIn**: [linkedin.com/in/junaid-ahmad-a259a177/](http://linkedin.com/in/junaid-ahmad-a259a177/)
+- **Behance**: [behance.net/junaid_ahd](https://www.behance.net/junaid_ahd)
