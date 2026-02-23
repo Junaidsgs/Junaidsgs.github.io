@@ -7,7 +7,7 @@ Live at: [https://junaidsgs.github.io](https://junaidsgs.github.io)
 ## 🚀 Key Features
 
 - **Interactive Project Showcase**: Custom modal system with detailed project breakdowns, highlights, and direct links.
-- **Dynamic Skill Visualization**: Radar chart powered by Chart.js to display technical proficiency across Unity, C#, Shader Lab, and more.
+- **Dynamic Skill Visualization**: Radar chart powered by Chart.js to display technical proficiency across Graphics, Systems, AI, Design, and Optimization.
 - **Theme Support**: Seamless Dark/Light mode toggle with persistent user preference.
 - **Responsive Design**: Fully optimized for mobile, tablet, and desktop viewing.
 - **Modern Animations**: Typewriter effects, scroll-reveal animations, and interactive hover states.
